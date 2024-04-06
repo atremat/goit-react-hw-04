@@ -3,7 +3,8 @@ import css from "./SearchBar.module.css";
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(e.target.elements.query.value);
+    const inputQuery = e.target.elements.query.value;
+    onSubmit(inputQuery);
     e.target.reset();
   };
 
