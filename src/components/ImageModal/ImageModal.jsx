@@ -13,6 +13,11 @@ const ImageModal = ({ isOpen, onModalClose, modalImage }) => {
         shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
         className={css.modal}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.75)",
+          },
+        }}
       >
         <img src={urlRegular} alt={alt} className={css.img}></img>
       </ReactModal>

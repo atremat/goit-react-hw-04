@@ -3,7 +3,6 @@ import css from "./ImageGallery.module.css";
 import ImageCard from "../ImageCard/ImageCard";
 
 const ImageGallery = ({ images, setIsModalOpen, onSetModalImage }) => {
-  console.log(images);
   return (
     <div className={css.wrapper}>
       <ul className={css.list}>

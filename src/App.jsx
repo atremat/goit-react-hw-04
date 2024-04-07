@@ -5,6 +5,7 @@ import fetchImages from "./services/api";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
 const App = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -13,21 +14,19 @@ const App = () => {
   const [images, setImages] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
 
   const searchImagesWithQuery = async (value) => {
     try {
-      console.log(`searching for a '${value}'`);
       setImages([]);
       setLoading(true);
-      const resData = await fetchImages(value);
+      const resData = await fetchImages(value, page);
+      setTotalPages(resData["total_pages"]);
       setImages(resData.results);
     } catch (err) {
-      console.log("in error");
       setIsError(true);
     } finally {
-      console.log("in finally");
-      console.log("images: ", images);
-      console.log("images.typeof = ", typeof images);
       setLoading(false);
     }
   };
@@ -52,6 +51,19 @@ const App = () => {
     setModalImage(img);
   };
 
+  const handleMoreClick = async () => {
+    try {
+      setLoading(true);
+      const resData = await fetchImages(searchValue, page + 1);
+      setPage((prev) => prev + 1);
+      setImages((prev) => [...prev, ...resData.results]);
+    } catch (err) {
+      setIsError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <SearchBar onSubmit={handleSearchPressed} />
@@ -64,13 +76,14 @@ const App = () => {
       )}
       {loading && <Loader />}
       {isError && <ErrorMessage />}
-      {
+      {isModalOpen && (
         <ImageModal
           isOpen={isModalOpen}
           onModalClose={handleModalClose}
           modalImage={modalImage}
         />
-      }
+      )}
+      {page <= totalPages && <LoadMoreBtn onMoreClick={handleMoreClick} />}
     </>
   );
 };
