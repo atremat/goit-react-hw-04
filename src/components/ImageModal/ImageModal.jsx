@@ -15,7 +15,7 @@ const ImageModal = ({ isOpen, onModalClose, modalImage }) => {
         className={css.modal}
         style={{
           overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.75)",
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
           },
         }}
       >

@@ -12,7 +12,6 @@ const fetchImages = async (query, page) => {
   const requestUrl = `/search/photos?page=${page}&per_page=21&query=${query}`;
 
   const response = await axios.get(requestUrl, { headers });
-  console.log(response);
   return response.data;
 };
 

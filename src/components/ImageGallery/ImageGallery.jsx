@@ -7,17 +7,18 @@ const ImageGallery = ({ images, setIsModalOpen, onSetModalImage }) => {
     <div className={css.wrapper}>
       <ul className={css.list}>
         {images.map((image) => {
-          const {
-            id,
-            alt_description: alt,
-            urls: { small, regular },
-          } = image;
+          // const {
+          //   id,
+          // alt_description: alt,
+          // urls: { small, regular },
+          // } = image;
           return (
-            <li key={id} className={css.item}>
+            <li key={image.id} className={css.item}>
               <ImageCard
-                urlSmall={small}
-                urlRegular={regular}
-                alt={alt}
+                imageInfo={image}
+                // urlSmall={small}
+                // urlRegular={regular}
+                // alt={alt}
                 setIsModalOpen={setIsModalOpen}
                 onSetModalImage={onSetModalImage}
               />
