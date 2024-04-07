@@ -2,7 +2,7 @@ import css from "./ImageGallery.module.css";
 
 import ImageCard from "../ImageCard/ImageCard";
 
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images, setIsModalOpen, onSetModalImage }) => {
   console.log(images);
   return (
     <div className={css.wrapper}>
@@ -15,7 +15,13 @@ const ImageGallery = ({ images }) => {
           } = image;
           return (
             <li key={id} className={css.item}>
-              <ImageCard urlSmall={small} urlRegular={regular} alt={alt} />
+              <ImageCard
+                urlSmall={small}
+                urlRegular={regular}
+                alt={alt}
+                setIsModalOpen={setIsModalOpen}
+                onSetModalImage={onSetModalImage}
+              />
             </li>
           );
         })}

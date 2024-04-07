@@ -12,6 +12,7 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [images, setImages] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState(null);
 
   const searchImagesWithQuery = async (value) => {
     try {
@@ -47,15 +48,29 @@ const App = () => {
     setIsModalOpen(true);
   };
 
+  const handleSetModalImage = (img) => {
+    setModalImage(img);
+  };
+
   return (
     <>
       <SearchBar onSubmit={handleSearchPressed} />
-      {images.length > 0 && <ImageGallery images={images} />}
+      {images.length > 0 && (
+        <ImageGallery
+          images={images}
+          setIsModalOpen={handleModalOpen}
+          onSetModalImage={handleSetModalImage}
+        />
+      )}
       {loading && <Loader />}
       {isError && <ErrorMessage />}
-      {isModalOpen && (
-        <ImageModal isOpen={isModalOpen} onModalClose={handleModalClose} />
-      )}
+      {
+        <ImageModal
+          isOpen={isModalOpen}
+          onModalClose={handleModalClose}
+          modalImage={modalImage}
+        />
+      }
     </>
   );
 };
