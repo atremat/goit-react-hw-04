@@ -1,18 +1,12 @@
 .modal {
-  max-width: 80%;
-
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* right: 40px;
-  bottom: 40px;
-  background-color: papayawhip;
-  width: 500px;
-  height: 300px;
-  border: 1px solid black; */
 }
 
 .img {
-  object-fit: cover;
+  max-height: 90vh;
+  width: auto;
+  object-fit: contain;
 }
