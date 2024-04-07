@@ -6,6 +6,7 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import { animateScroll } from "react-scroll";
 
 const App = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -52,6 +53,11 @@ const App = () => {
     setModalImage(img);
   };
 
+  const scrollOptions = {
+    duration: 500,
+    smooth: true,
+  };
+
   const handleMoreClick = async () => {
     try {
       setLoading(true);
@@ -62,6 +68,7 @@ const App = () => {
       setIsError(true);
     } finally {
       setLoading(false);
+      animateScroll.scrollMore(224, scrollOptions);
     }
   };
 
