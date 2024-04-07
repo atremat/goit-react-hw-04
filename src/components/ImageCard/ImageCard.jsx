@@ -1,5 +1,6 @@
 import css from "./ImageCard.module.css";
 import { FaInstagram } from "react-icons/fa";
+import clsx from "clsx";
 
 const ImageCard = ({ imageInfo, setIsModalOpen, onSetModalImage }) => {
   const {
@@ -34,7 +35,7 @@ const ImageCard = ({ imageInfo, setIsModalOpen, onSetModalImage }) => {
           <h3 className={css.infoHeader}>Photographer</h3>
           {instagram ? (
             <a
-              className={css.text}
+              className={clsx(css.text, css.link)}
               href={"https://www.instagram.com/" + instagram}
               target="_blank"
             >

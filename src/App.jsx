@@ -21,6 +21,7 @@ const App = () => {
     try {
       setImages([]);
       setLoading(true);
+      setTotalPages(null);
       const resData = await fetchImages(value, page);
       setTotalPages(resData["total_pages"]);
       setImages(resData.results);
@@ -83,7 +84,7 @@ const App = () => {
           modalImage={modalImage}
         />
       )}
-      {page <= totalPages && <LoadMoreBtn onMoreClick={handleMoreClick} />}
+      {page < totalPages && <LoadMoreBtn onMoreClick={handleMoreClick} />}
     </>
   );
 };
