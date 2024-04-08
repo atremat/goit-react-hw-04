@@ -2,26 +2,14 @@ import css from "./ImageGallery.module.css";
 
 import ImageCard from "../ImageCard/ImageCard";
 
-const ImageGallery = ({ images, setIsModalOpen, onSetModalImage }) => {
+const ImageGallery = ({ images, onModalOpen }) => {
   return (
     <div className={css.wrapper}>
       <ul className={css.list}>
         {images.map((image) => {
-          // const {
-          //   id,
-          // alt_description: alt,
-          // urls: { small, regular },
-          // } = image;
           return (
             <li key={image.id} className={css.item}>
-              <ImageCard
-                imageInfo={image}
-                // urlSmall={small}
-                // urlRegular={regular}
-                // alt={alt}
-                setIsModalOpen={setIsModalOpen}
-                onSetModalImage={onSetModalImage}
-              />
+              <ImageCard imageInfo={image} onModalOpen={onModalOpen} />
             </li>
           );
         })}

@@ -20,12 +20,11 @@ const App = () => {
 
   const searchImagesWithQuery = async (value) => {
     try {
-      setImages([]);
       setLoading(true);
       setTotalPages(null);
       const resData = await fetchImages(value, page);
       setTotalPages(resData["total_pages"]);
-      setImages(resData.results);
+      setImages((prev) => [...prev, ...resData.results]);
     } catch (err) {
       setIsError(true);
     } finally {
@@ -34,22 +33,25 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (searchValue !== "") searchImagesWithQuery(searchValue);
-  }, [searchValue]);
+    if (searchValue !== "") {
+      searchImagesWithQuery(searchValue);
+      //making scroll if load more button pressed
+      if (page > 1) animateScroll.scrollMore(224, scrollOptions);
+    }
+  }, [searchValue, page]);
 
   const handleSearchPressed = (query) => {
     setSearchValue(query);
+    setImages([]);
+    setPage(1);
   };
 
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
 
-  const handleModalOpen = () => {
+  const handleModalOpen = (img) => {
     setIsModalOpen(true);
-  };
-
-  const handleSetModalImage = (img) => {
     setModalImage(img);
   };
 
@@ -59,28 +61,14 @@ const App = () => {
   };
 
   const handleMoreClick = async () => {
-    try {
-      setLoading(true);
-      const resData = await fetchImages(searchValue, page + 1);
-      setPage((prev) => prev + 1);
-      setImages((prev) => [...prev, ...resData.results]);
-    } catch (err) {
-      setIsError(true);
-    } finally {
-      setLoading(false);
-      animateScroll.scrollMore(224, scrollOptions);
-    }
+    setPage((prev) => prev + 1);
   };
 
   return (
     <>
       <SearchBar onSubmit={handleSearchPressed} />
       {images.length > 0 && (
-        <ImageGallery
-          images={images}
-          setIsModalOpen={handleModalOpen}
-          onSetModalImage={handleSetModalImage}
-        />
+        <ImageGallery images={images} onModalOpen={handleModalOpen} />
       )}
       {loading && <Loader />}
       {isError && <ErrorMessage />}
@@ -91,7 +79,9 @@ const App = () => {
           modalImage={modalImage}
         />
       )}
-      {page < totalPages && <LoadMoreBtn onMoreClick={handleMoreClick} />}
+      {totalPages && page < totalPages && (
+        <LoadMoreBtn onMoreClick={handleMoreClick} />
+      )}
     </>
   );
 };

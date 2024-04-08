@@ -2,7 +2,7 @@ import css from "./ImageCard.module.css";
 import { FaInstagram } from "react-icons/fa";
 import clsx from "clsx";
 
-const ImageCard = ({ imageInfo, setIsModalOpen, onSetModalImage }) => {
+const ImageCard = ({ imageInfo, onModalOpen }) => {
   const {
     alt_description: alt,
     urls: { small: urlSmall, regular: urlRegular },
@@ -14,8 +14,7 @@ const ImageCard = ({ imageInfo, setIsModalOpen, onSetModalImage }) => {
   } = imageInfo;
 
   const handleImgClick = () => {
-    setIsModalOpen();
-    onSetModalImage({ urlRegular, alt });
+    onModalOpen({ urlRegular, alt });
   };
 
   return (

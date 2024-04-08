@@ -8,7 +8,10 @@ const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const inputQuery = e.target.elements.query.value;
-    if (inputQuery === "") notify();
+    if (inputQuery === "") {
+      notify();
+      return;
+    }
     onSubmit(inputQuery);
     e.target.reset();
   };
